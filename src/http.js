@@ -37,11 +37,10 @@ class EasyHTTP {
             method: "DELETE",
             headers: {
                 'Content-type': 'application/json'
-            },
-            body: JSON.stringify(data)
+            }
         });
 
-        const resData = await 'Resource Deleted...';
+        const resData = await response.json();
         return resData;
     }
 

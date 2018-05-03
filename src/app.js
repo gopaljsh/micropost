@@ -7,6 +7,8 @@ document.addEventListener('DOMContentLoaded', getPosts);
 
 ui.postSubmit.addEventListener('click', submitPost);
 
+ui.post.addEventListener('click', deletePost);
+
 function getPosts() {
     http.get('http://localhost:3000/posts')
         .then(data => ui.showPosts(data))
@@ -29,4 +31,20 @@ function submitPost() {
             getPosts();
         })
         .catch(err => console.log(err))
+}
+
+function deletePost(e) {
+    if(e.target.parentElement.classList.contains('delete')) {
+        const id = e.target.parentElement.dataset.id;
+        const confirmMsg = e.target.parentElement.dataset.confirm;
+        if(confirm(confirmMsg)) {
+            http.delete(`http://localhost:3000/posts/${id}`)
+                .then(data => {
+                    ui.showAlert('Post removed', 'alert alert-success')
+                    getPosts();
+                })
+                .catch(err => console.log(err));
+        }
+
+    }
 }
