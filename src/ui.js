@@ -7,6 +7,7 @@ class UI {
         this.idInput = document.querySelector('#id');
         this.postSubmit = document.querySelector('.post-submit');
         this.forState = 'add';
+        this.cancelBtn = document.querySelector('.post-cancel');
     }
 
     showPosts(posts) {
@@ -83,12 +84,14 @@ class UI {
             this.postSubmit.className = 'post-submit btn btn-warning btn-block';
 
             const button = document.createElement('button');
-            button.className = 'post-cancel btn btn-light btn-block';
+            button.className = 'post-cancel btn btn-normal btn-block';
             button.appendChild(document.createTextNode('Cancel it'));
 
             const cardForm = document.querySelector('.card-form');
             const formEnd = document.querySelector('.form-end');
-
+            button.onclick = () => {
+                this.changeFormState('add');
+            };
             cardForm.insertBefore(button, formEnd);
         } else {
             this.postSubmit.textContent = 'Post it';
@@ -103,6 +106,7 @@ class UI {
             this.clearFields();
         }
     }
+
 }
 
 export const ui = new UI();
